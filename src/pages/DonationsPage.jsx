@@ -1,8 +1,8 @@
 import React from "react";
 
-export default function HomePage() {
+export default function DonationsPage() {
   return (
-    <div className="home-page">
+    <div className="donations-page">
       {/* Content will go here */}
     </div>
   );
