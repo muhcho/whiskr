@@ -20,6 +20,25 @@
 /* ---------- Root Variables ---------- */
 :root {
   --white: #f1f1f1;
+  :root {
+    --light-blue: #D6F2FE;
+    --orange: #FE7149;
+    --light-yellow: #FFF4D8;
+    --pink: #E8027F;
+    --light-pink: #FEE0EE;
+    --soft-blue: #88A8FE;
+    --gold: #ECBD1D;
+    --hot-pink: #FE2B6E;
+    --deep-blue: #6088F5;
+    --lightest-blue: #D7FDFE;
+    --mint: #D6F2FE;
+    --purple: #E3D7FF;
+    --soft-red: #FFD7D6;
+    --deep-purple: #6558C2;
+    --peach: #FEA99A;
+    --salmon: #FD917D;
+  }
+  
 }
 
 /* ---------- HTML, body and rest styling ---------- */
@@ -36,7 +55,7 @@ html {
 
 
 /* ---------- Cat Animation ---------- */
-body {
+.cat-animation-box. body {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -191,5 +210,148 @@ height: 49px;
   margin-top: 10px;
   text-decoration: underline;
   cursor: pointer;
+}
+
+/* ---------- Nav---------- */
+/* General Navbar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-around; /* Even spacing between items */
+  align-items: center; /* Vertically center icons and text */
+  position: fixed;
+  font-family: "SF Pro", sans-serif;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80px; /* Increased height */
+  background-color: rgba(255, 255, 255, 0.9); /* 90% transparency */
+  border-top: 1px solid #ccc; /* Optional: subtle border for separation */
+  z-index: 1000; /* Ensure it stays on top */
+}
+
+/* Individual Nav Items */
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.5); /* Default text color */
+  font-size: 14px; /* Slightly larger font */
+  font-weight: 800;
+  transition: color 0.3s ease; /* Smooth transition for color change */
+  
+}
+
+/* Active Nav Item */
+.nav-item-active {
+  color: #44B6FF; /* Highlight active icon and text */
+}
+
+/* Icons */
+.nav-icon {
+  width: 32px; /* Larger icon size */
+  height: 32px;
+  margin-bottom: 5px; /* Space between icon and text */
+  transition: filter 0.3s ease; /* Smooth transition for filter effect */
+}
+
+/* Ensure both icon and text turn blue when active */
+.nav-item-active .nav-icon {
+  filter: brightness(0) saturate(100%) invert(51%) sepia(39%) saturate(3663%) hue-rotate(183deg) brightness(94%) contrast(88%);
+}
+
+/* ---------- Homepage CSS ---------- */
+
+/* HomePage Styles */
+.homepage-wrapper {
+  background-color: var(--light-grey);
+  min-height: 100vh;
+  font-family: "SF Pro", sans-serif;
+}
+
+.homepage-header {
+  padding: 22px;
+  position: relative;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.homepage-title {
+  font-size: 26px; /* Increased size for "Mette's tasks" */
+  font-weight: bold;
+  color: var(--text-color-dark);
+  margin: 0;
+  position: absolute;
+  top: 22px;
+  left: 22px;
+}
+
+.homepage-calendar {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  display: flex;
+  align-items: center;
+}
+
+.calendar-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.calendar-notification {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: var(--blue);
+  color: var(--white);
+  font-size: 12px;
+  font-weight: bold;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-date {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Added spacing for arrows */
+  margin-top: 60px; /* Spacing to push it below "Mette's tasks" */
+}
+
+.date-center {
+  text-align: center;
+}
+
+.homepage-day {
+  font-size: 30px; /* Larger day font */
+  font-weight: bold;
+  margin: 0;
+  color: var(--text-color-dark);
+}
+
+.homepage-full-date {
+  font-size: 20px; /* Larger date font */
+  font-weight: 400;
+  color: var(--text-color-dark);
+  margin: 0;
+}
+
+.date-arrow {
+  background: none;
+  border: none;
+  font-size: 28px; /* Increased font size for arrows */
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0px; /* Added consistent padding of 22px */
+  color: var(--text-color-dark);
 }
 
