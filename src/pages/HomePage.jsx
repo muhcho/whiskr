@@ -2,15 +2,19 @@ import React, { useState, useEffect } from "react";
 import CalendarIcon from "../assets/Images/calendar_homepage.svg";
 import DurationIcon from "../assets/Images/duration_icon.svg";
 import AmountIcon from "../assets/Images/amout_icon.svg";
+import ThreeDotsIcon from "../assets/Images/threedotstask.svg";
+import PlusButton from "../assets/Images/plusButton.svg";
+import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [tasks, setTasks] = useState([]);
+  const navigate = useNavigate();
 
   const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   const monthNames = [
     "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
+    "July", "August", "September", "October", "November", "December",
   ];
 
   // Fetch tasks from Firebase
@@ -24,6 +28,12 @@ export default function HomePage() {
 
     fetchTasks();
   }, []);
+
+  // Format current date for filtering
+  const formattedCurrentDate = currentDate.toISOString().split("T")[0];
+
+  // Filter tasks for the current date
+  const filteredTasks = tasks.filter((task) => task.date === formattedCurrentDate);
 
   const goToPreviousDay = () => {
     const previousDay = new Date(currentDate);
@@ -71,72 +81,88 @@ export default function HomePage() {
 
       {/* Tasks */}
       <div className="tasks-container">
-        {tasks.slice(0, 4).map((task, index) => (
-          <div
-            key={index}
-            className="task-component"
-            style={{
-              backgroundColor:
-                task.nameOfTask === "Feeding"
-                  ? "var(--light-blue)"
-                  : "var(--light-pink)",
-            }}
-          >
+        {filteredTasks.length === 0 ? (
+          <p>Yay! You don't have any tasks for today.</p>
+        ) : (
+          filteredTasks.map((task, index) => (
             <div
-              className="task-tick-bar"
+              key={index}
+              className={`task-component ${task.completed ? "task-completed" : ""}`}
               style={{
                 backgroundColor:
                   task.nameOfTask === "Feeding"
-                    ? "var(--orange)"
-                    : "var(--pink)",
+                    ? "var(--light-blue)"
+                    : task.nameOfTask === "Water Refill"
+                    ? "var(--light-pink)"
+                    : task.nameOfTask === "Medication"
+                    ? "var(--light-yellow)"
+                    : "var(--light-green)",
               }}
-            ></div>
-            <div className="task-time">{task.startTime}</div>
-            <div className="task-details">
-              <div className="task-left">
-                <h2
-                  className="task-name"
+            >
+              <div className="task-time-wrapper">
+                <span className="task-start-time">{task.startTime}</span>
+              </div>
+              <div className="task-details">
+                <div
+                  className="task-tick-bar"
                   style={{
-                    color:
+                    backgroundColor:
                       task.nameOfTask === "Feeding"
                         ? "var(--orange)"
-                        : "var(--pink)",
+                        : task.nameOfTask === "Water Refill"
+                        ? "var(--pink)"
+                        : task.nameOfTask === "Medication"
+                        ? "var(--yellow)"
+                        : "var(--green)",
                   }}
-                >
-                  {task.petName}'s <br />
-                  {task.nameOfTask}
-                </h2>
-                <div className="task-duration">
-                  <img src={DurationIcon} alt="Duration" />
-                  <span>{task.duration} min</span>
-                </div>
-                {task.nameOfTask === "Feeding" && (
-                  <div className="task-amount">
-                    <img src={AmountIcon} alt="Amount" />
-                    <span>{task.amount} dry food</span>
+                ></div>
+                <div className="task-content">
+                  <h2 className="task-name">
+                    {task.petName}'s {task.nameOfTask}
+                  </h2>
+                  <div className="task-info">
+                    <div className="task-duration">
+                      <img src={DurationIcon} alt="Duration" />
+                      <span>{task.duration}</span>
+                    </div>
+                    {task.nameOfTask === "Feeding" && (
+                      <div className="task-amount">
+                        <img src={AmountIcon} alt="Amount" />
+                        <span>{task.amount} dry food</span>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-              <div
-                className="task-status"
-                onClick={() =>
-                  setTasks((prevTasks) =>
-                    prevTasks.map((t) =>
-                      t.id === task.id ? { ...t, completed: !t.completed } : t
+                </div>
+                <button
+                  className="task-status"
+                  onClick={() =>
+                    setTasks((prevTasks) =>
+                      prevTasks.map((t) =>
+                        t.id === task.id ? { ...t, completed: !t.completed } : t
+                      )
                     )
-                  )
-                }
-              >
-                {task.completed && <span>✓</span>}
+                  }
+                >
+                  {task.completed && <span>✓</span>}
+                </button>
+              </div>
+              <div className="task-end-wrapper">
+                <span className="task-end-time">{task.endTime}</span>
+                <img src={ThreeDotsIcon} alt="Options" className="task-dots" />
               </div>
             </div>
-            <div className="task-end-time">
-              {task.endTime}
-              <span className="task-dots">...</span>
-            </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
+
+      {/* Add Task Button */}
+      <button
+        className="add-task-button"
+        onClick={() => navigate("/create-task")}
+      >
+        <img src={PlusButton} alt="Add Task" className="add-task-icon" />
+        Add Task
+      </button>
     </div>
   );
 }

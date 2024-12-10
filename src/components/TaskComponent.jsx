@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import DurationIcon from "../assets/Images/duration_icon.svg";
 import AmountIcon from "../assets/Images/amout_icon.svg";
 import ThreeDotsIcon from "../assets/Images/threedotstask.svg";
 
-export default function Task({ task }) {
-  const [completed, setCompleted] = useState(false);
-
+export default function TaskComponent({ task, onComplete }) {
   const {
     petName,
     nameOfTask,
@@ -16,7 +14,12 @@ export default function Task({ task }) {
     date,
   } = task;
 
-  const handleTaskClick = () => setCompleted(!completed);
+  const [completed, setCompleted] = useState(false);
+
+  const handleTaskClick = () => {
+    setCompleted((prev) => !prev);
+    onComplete(task);
+  };
 
   // Determine colors based on task type
   const taskColors = {
@@ -31,54 +34,66 @@ export default function Task({ task }) {
   const { box, text, line } = taskColors[nameOfTask] || taskColors.default;
 
   return (
-    <div
-      className={`task-box ${completed ? "task-completed" : ""}`}
-      style={{ backgroundColor: box }}
-    >
-      <div className="task-times">
+    <div className="task-wrapper">
+      <div className="task-time-wrapper">
         <span className="task-start-time" style={{ color: text }}>
           {startTime}
         </span>
-        <span className="task-end-time">{endTime}</span>
-      </div>
-      <div className="task-content">
-        <div className="task-line" style={{ backgroundColor: line }}></div>
-        <div className="task-details">
-          <h3 className="task-pet-name" style={{ color: text }}>
-            {petName}'s
-          </h3>
-          <h2 className="task-name" style={{ color: text }}>
-            {nameOfTask}
-          </h2>
-          <div className="task-info">
-            <div className="task-duration">
-              <img src={DurationIcon} alt="Duration" className="task-icon" />
-              <span>{duration}</span>
-            </div>
-            {nameOfTask === "Feeding" && (
-              <div className="task-amount">
-                <img src={AmountIcon} alt="Amount" className="task-icon" />
-                <span>{amount}</span>
+        <div
+          className={`task-box ${completed ? "task-completed" : ""}`}
+          style={{ backgroundColor: box }}
+        >
+          <div className="task-content">
+            <div className="task-line" style={{ backgroundColor: line }}></div>
+            <div className="task-details">
+              <h3
+                className={`task-pet-name ${completed ? "task-done" : ""}`}
+                style={{ color: text }}
+              >
+                {petName}'s
+              </h3>
+              <h2
+                className={`task-name ${completed ? "task-done" : ""}`}
+                style={{ color: text }}
+              >
+                {nameOfTask}
+              </h2>
+              <div className="task-info">
+                <div className="task-duration">
+                  <img src={DurationIcon} alt="Duration" className="task-icon" />
+                  <span>{duration}</span>
+                </div>
+                {nameOfTask === "Feeding" && (
+                  <div className="task-amount">
+                    <img
+                      src={AmountIcon}
+                      alt="Amount"
+                      className="task-icon"
+                    />
+                    <span>{amount}</span>
+                  </div>
+                )}
               </div>
-            )}
+            </div>
+            <button
+              className="task-check-btn"
+              onClick={handleTaskClick}
+              style={{ borderColor: text }}
+            >
+              {completed && (
+                <span
+                  className="task-check-icon"
+                  style={{ backgroundColor: text }}
+                >
+                  ✓
+                </span>
+              )}
+            </button>
           </div>
         </div>
-        <button
-          className="task-check-btn"
-          onClick={handleTaskClick}
-          style={{ borderColor: text }}
-        >
-          {completed && (
-            <span
-              className="task-check-icon"
-              style={{ backgroundColor: text }}
-            >
-              ✓
-            </span>
-          )}
-        </button>
+        <span className="task-end-time">{endTime}</span>
+        <img src={ThreeDotsIcon} alt="Options" className="task-dots-icon" />
       </div>
-      <img src={ThreeDotsIcon} alt="Options" className="task-dots-icon" />
     </div>
   );
 }
