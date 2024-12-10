@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 export default function HomePage() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [tasks, setTasks] = useState([]);
+  const [selectedTaskId, setSelectedTaskId] = useState(null);
   const navigate = useNavigate();
 
   const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -55,26 +56,54 @@ export default function HomePage() {
     setCurrentDate(nextDay);
   };
 
-  const toggleTaskCompletion = async (taskId) => {
-    const updatedTasks = tasks.map((task) =>
-      task.id === taskId ? { ...task, completed: !task.completed } : task
-    );
-    setTasks(updatedTasks);
+  const handleTaskCompletion = (taskId) => {
+    setSelectedTaskId(taskId);
+  };
 
-    // Update task in Firebase
-    const taskToUpdate = updatedTasks.find((task) => task.id === taskId);
+  const handleKeepScratched = async () => {
+    const taskId = selectedTaskId;
     try {
       await fetch(
         `https://whiskr-2-default-rtdb.firebaseio.com/tasks/${taskId}.json`,
         {
           method: "PATCH",
-          body: JSON.stringify({ completed: taskToUpdate.completed }),
+          body: JSON.stringify({ completed: true }),
           headers: { "Content-Type": "application/json" },
         }
+      );
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task.id === taskId ? { ...task, completed: true } : task
+        )
       );
     } catch (error) {
       console.error("Error updating task:", error);
     }
+    setSelectedTaskId(null);
+  };
+
+  const handleDeleteTask = async () => {
+    const taskId = selectedTaskId;
+    try {
+      await fetch(
+        `https://whiskr-2-default-rtdb.firebaseio.com/tasks/${taskId}.json`,
+        {
+          method: "DELETE",
+        }
+      );
+      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+    } catch (error) {
+      console.error("Error deleting task:", error);
+    }
+    setSelectedTaskId(null);
+  };
+
+  const handleUnselectTask = (taskId) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === taskId ? { ...task, completed: false } : task
+      )
+    );
   };
 
   const dayName = dayNames[currentDate.getDay()];
@@ -90,7 +119,7 @@ export default function HomePage() {
           <h1 className="homepage-title">Mette's tasks</h1>
           <div className="homepage-calendar">
             <img src={CalendarIcon} alt="Calendar" className="calendar-icon" />
-            <span className="calendar-notification">2</span>
+            <span className="calendar-notification"></span>
           </div>
         </div>
         <div className="header-date">
@@ -112,7 +141,7 @@ export default function HomePage() {
       {/* Tasks */}
       <div className="tasks-container">
         {filteredTasks.length === 0 ? (
-          <p>Yay! You don't have any tasks for today.</p>
+          <p>Yay! You don't have any tasks for today. ✨</p>
         ) : (
           filteredTasks.map((task) => (
             <div
@@ -162,12 +191,33 @@ export default function HomePage() {
                       </div>
                     )}
                   </div>
+                  {selectedTaskId === task.id && (
+                    <div className="task-popup">
+                      <p>What would you like to do?</p>
+                      <button
+                        className="keep-button"
+                        onClick={handleKeepScratched}
+                      >
+                        Keep Task
+                      </button>
+                      <button
+                        className="delete-button"
+                        onClick={handleDeleteTask}
+                      >
+                        Delete Task
+                      </button>
+                    </div>
+                  )}
                 </div>
                 <button
                   className="task-status"
-                  onClick={() => toggleTaskCompletion(task.id)}
+                  onClick={() =>
+                    task.completed
+                      ? handleUnselectTask(task.id)
+                      : handleTaskCompletion(task.id)
+                  }
                 >
-                  {task.completed && <span>✓</span>}
+                  {task.completed ? "✓" : ""}
                 </button>
               </div>
               <div className="task-end-wrapper">

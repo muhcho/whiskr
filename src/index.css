@@ -18,28 +18,7 @@
 
 
 /* ---------- Root Variables ---------- */
-:root {
-  --white: #f1f1f1;
-  :root {
-    --light-blue: #D6F2FE;
-    --orange: #FE7149;
-    --light-yellow: #FFF4D8;
-    --pink: #E8027F;
-    --light-pink: #FEE0EE;
-    --soft-blue: #88A8FE;
-    --gold: #ECBD1D;
-    --hot-pink: #FE2B6E;
-    --deep-blue: #6088F5;
-    --lightest-blue: #D7FDFE;
-    --mint: #D6F2FE;
-    --purple: #E3D7FF;
-    --soft-red: #FFD7D6;
-    --deep-purple: #6558C2;
-    --peach: #FEA99A;
-    --salmon: #FD917D;
-  }
-  
-}
+
 
 /* ---------- HTML, body and rest styling ---------- */
 
@@ -374,6 +353,10 @@ height: 49px;
   display: flex;
   flex-direction: column;
   gap: 50px;
+  padding-left: 22px;
+  padding-right: 22px;
+  font-weight: 500;
+  font-family: "SF Pro", sans-serif;
 }
 
 .task-component {
@@ -423,6 +406,7 @@ height: 49px;
   width: 16px;
   height: 16px;
   cursor: pointer;
+  padding-left: -30px;
 }
 
 .task-details {
@@ -508,9 +492,6 @@ height: 49px;
   gap: 10px;
 }
 
-.add-task-button:hover {
-  background-color: var(--dark-blue);
-}
 
 .add-task-icon {
   width: 20px;
@@ -672,5 +653,64 @@ height: 49px;
   background-color: #357ab8;
 }
 
+.task-popup {
+  background-color: #88A8FE;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  text-align: center;
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
+}
+
+.task-popup p {
+  font-size: 16px;
+  margin-bottom: 10px;
+  font-weight: 490;
+  color: white;
+}
+
+.task-popup .keep-button,
+.task-popup .delete-button {
+  font-size: 14px;
+  padding: 5px 10px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.task-popup .keep-button {
+  background-color: white;
+  color: #44b6ff;
+}
+
+.task-popup .keep-button:hover {
+  background-color: #44b6ff;
+  color: white;
+}
+
+.task-popup .delete-button {
+  background-color: #FE7149;
+  color: white;
+}
+
+.task-popup .delete-button:hover {
+  background-color: white;
+  color: #FE7149;
+}
 
 
+.task-notes {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #555;
+  margin-top: 8px; /* Space between task info and notes */
+}
+
+.task-notes img {
+  width: 16px;
+  height: 16px;
+}

@@ -12,24 +12,23 @@ import VetAppointmentImg from "../assets/Images/vetaapoint.jpg";
 export default function CreateTaskPage() {
   const navigate = useNavigate();
 
-  const [taskName, setTaskName] = useState("");
   const [petName, setPetName] = useState("");
   const [date, setDate] = useState(new Date());
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [repeat, setRepeat] = useState("None");
-  const [selectedTaskType, setSelectedTaskType] = useState("");
+  const [selectedTaskType, setSelectedTaskType] = useState(null);
   const [notes, setNotes] = useState("");
 
   const taskTypes = [
-    { name: "Feeding", image: FeedingImg },
-    { name: "Water Refill", image: WaterRefillImg },
-    { name: "Clean Toilet", image: CleanToiletImg },
-    { name: "Give Bath", image: GiveBathImg },
-    { name: "Medication", image: MedicationImg },
-    { name: "Playtime", image: PlaytimeImg },
-    { name: "Buy Food", image: BuyFoodImg },
-    { name: "Vet Appointment", image: VetAppointmentImg },
+    { name: "Feeding", image: FeedingImg, color: "#D6F2FE" }, // Light Blue
+    { name: "Water Refill", image: WaterRefillImg, color: "#FFD7D6" }, // Light Pink
+    { name: "Clean Toilet", image: CleanToiletImg, color: "#FFF4D8" }, // Light Yellow
+    { name: "Give Bath", image: GiveBathImg, color: "#E3D7FF" }, // Light Purple
+    { name: "Medication", image: MedicationImg, color: "#FEA99A" }, // Light Coral
+    { name: "Playtime", image: PlaytimeImg, color: "#FFF4D8" }, // Light Yellow
+    { name: "Buy Food", image: BuyFoodImg, color: "#ECBD1D" }, // Yellow
+    { name: "Vet Appointment", image: VetAppointmentImg, color: "#FE7149" }, // Orange
   ];
 
   const calculateDuration = () => {
@@ -52,23 +51,24 @@ export default function CreateTaskPage() {
   };
 
   const handleFinishTask = async () => {
-    if (!taskName || !petName || !selectedTaskType) {
-      alert("Please fill out all required fields!");
+    if (!selectedTaskType || !petName) {
+      alert("Please select a task type and pet name!");
       return;
     }
 
     const newTask = {
-      nameOfTask: taskName,
+      nameOfTask: selectedTaskType.name, // Assign the name of the selected task
       petName,
       date: date.toISOString().split("T")[0],
       startTime: startTime || "Anytime",
       endTime: endTime || "Anytime",
       duration: calculateDuration(),
       repeat,
-      type: selectedTaskType,
       notes,
-      completed: false, // Default to incomplete
+      color: selectedTaskType.color, // Assign the task color
+      completed: false,
     };
+
 
     try {
       const response = await fetch(
@@ -86,7 +86,6 @@ export default function CreateTaskPage() {
 
       alert("Task created successfully!");
 
-      // Navigate back to the homepage
       navigate("/homepage");
     } catch (error) {
       console.error("Error creating new task:", error);
@@ -94,24 +93,11 @@ export default function CreateTaskPage() {
     }
   };
 
-  const toggleTaskCompletion = (taskId) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === taskId ? { ...task, completed: !task.completed } : task
-      )
-    );
-  };
-
   return (
     <div className="create-task-page">
       <h1 className="page-title">Create Task</h1>
-      <input
-        type="text"
-        className="task-name-input"
-        placeholder="Task name..."
-        value={taskName}
-        onChange={(e) => setTaskName(e.target.value)}
-      />
+
+      {/* Pet Selection */}
       <div className="pet-selection">
         <div
           className={`pet-option ${petName === "Alfred" ? "selected" : ""}`}
@@ -126,6 +112,8 @@ export default function CreateTaskPage() {
           <span>Monia</span>
         </div>
       </div>
+
+      {/* Date and Time Selection */}
       <div className="date-time-repeat">
         <div className="date-picker">
           <button onClick={() => setDate(new Date(date.setDate(date.getDate() - 1)))}>{"<"}</button>
@@ -157,24 +145,32 @@ export default function CreateTaskPage() {
           <option value="Friday">Every Friday</option>
         </select>
       </div>
+
+      {/* Task Type Selection */}
       <div className="task-type-selection">
         {taskTypes.map((type) => (
           <div
             key={type.name}
-            className={`task-type-option ${selectedTaskType === type.name ? "selected" : ""}`}
-            onClick={() => setSelectedTaskType(type.name)}
+            className={`task-type-option ${
+              selectedTaskType?.name === type.name ? "selected" : ""
+            }`}
+            onClick={() => setSelectedTaskType(type)}
           >
             <img src={type.image} alt={type.name} />
             <span>{type.name}</span>
           </div>
         ))}
       </div>
+
+      {/* Notes Input */}
       <textarea
         className="notes-input"
         placeholder="Write your note here..."
         value={notes}
         onChange={(e) => setNotes(e.target.value)}
       ></textarea>
+
+      {/* Finish Task Button */}
       <button className="finish-task-button" onClick={handleFinishTask}>
         Finish Task
       </button>
