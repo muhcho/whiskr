@@ -20,10 +20,18 @@ export default function HomePage() {
   // Fetch tasks from Firebase
   useEffect(() => {
     const fetchTasks = async () => {
-      const response = await fetch("https://whiskr-2-default-rtdb.firebaseio.com/tasks.json");
-      const data = await response.json();
-      const formattedTasks = Object.values(data).sort((a, b) => a.startTime.localeCompare(b.startTime));
-      setTasks(formattedTasks);
+      try {
+        const response = await fetch("https://whiskr-2-default-rtdb.firebaseio.com/tasks.json");
+        if (!response.ok) throw new Error("Failed to fetch tasks.");
+        const data = await response.json();
+        const formattedTasks = Object.entries(data || {}).map(([id, task]) => ({
+          id,
+          ...task,
+        }));
+        setTasks(formattedTasks);
+      } catch (error) {
+        console.error("Error fetching tasks:", error);
+      }
     };
 
     fetchTasks();
@@ -45,6 +53,28 @@ export default function HomePage() {
     const nextDay = new Date(currentDate);
     nextDay.setDate(currentDate.getDate() + 1);
     setCurrentDate(nextDay);
+  };
+
+  const toggleTaskCompletion = async (taskId) => {
+    const updatedTasks = tasks.map((task) =>
+      task.id === taskId ? { ...task, completed: !task.completed } : task
+    );
+    setTasks(updatedTasks);
+
+    // Update task in Firebase
+    const taskToUpdate = updatedTasks.find((task) => task.id === taskId);
+    try {
+      await fetch(
+        `https://whiskr-2-default-rtdb.firebaseio.com/tasks/${taskId}.json`,
+        {
+          method: "PATCH",
+          body: JSON.stringify({ completed: taskToUpdate.completed }),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    } catch (error) {
+      console.error("Error updating task:", error);
+    }
   };
 
   const dayName = dayNames[currentDate.getDay()];
@@ -84,9 +114,9 @@ export default function HomePage() {
         {filteredTasks.length === 0 ? (
           <p>Yay! You don't have any tasks for today.</p>
         ) : (
-          filteredTasks.map((task, index) => (
+          filteredTasks.map((task) => (
             <div
-              key={index}
+              key={task.id}
               className={`task-component ${task.completed ? "task-completed" : ""}`}
               style={{
                 backgroundColor:
@@ -135,13 +165,7 @@ export default function HomePage() {
                 </div>
                 <button
                   className="task-status"
-                  onClick={() =>
-                    setTasks((prevTasks) =>
-                      prevTasks.map((t) =>
-                        t.id === task.id ? { ...t, completed: !t.completed } : t
-                      )
-                    )
-                  }
+                  onClick={() => toggleTaskCompletion(task.id)}
                 >
                   {task.completed && <span>✓</span>}
                 </button>

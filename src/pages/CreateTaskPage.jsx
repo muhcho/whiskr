@@ -9,8 +9,9 @@ import PlaytimeImg from "../assets/Images/playtime.jpg";
 import BuyFoodImg from "../assets/Images/buy food.jpg";
 import VetAppointmentImg from "../assets/Images/vetaapoint.jpg";
 
-export default function CreateTaskPage({ addTask }) {
+export default function CreateTaskPage() {
   const navigate = useNavigate();
+
   const [taskName, setTaskName] = useState("");
   const [petName, setPetName] = useState("");
   const [date, setDate] = useState(new Date());
@@ -31,25 +32,74 @@ export default function CreateTaskPage({ addTask }) {
     { name: "Vet Appointment", image: VetAppointmentImg },
   ];
 
-  const handleFinishTask = () => {
+  const calculateDuration = () => {
+    if (!startTime || !endTime) {
+      return "Anytime";
+    }
+    const [startHour, startMinute] = startTime.split(":").map(Number);
+    const [endHour, endMinute] = endTime.split(":").map(Number);
+
+    const startTotalMinutes = startHour * 60 + startMinute;
+    const endTotalMinutes = endHour * 60 + endMinute;
+
+    const durationMinutes = endTotalMinutes - startTotalMinutes;
+
+    if (durationMinutes <= 0) {
+      return "Invalid time"; // Handles cases where startTime >= endTime
+    }
+
+    return `${durationMinutes} minutes`;
+  };
+
+  const handleFinishTask = async () => {
     if (!taskName || !petName || !selectedTaskType) {
-      alert("Please fill all required fields!");
+      alert("Please fill out all required fields!");
       return;
     }
 
     const newTask = {
-      taskName,
+      nameOfTask: taskName,
       petName,
       date: date.toISOString().split("T")[0],
       startTime: startTime || "Anytime",
       endTime: endTime || "Anytime",
+      duration: calculateDuration(),
       repeat,
       type: selectedTaskType,
       notes,
+      completed: false, // Default to incomplete
     };
 
-    addTask(newTask);
-    navigate("/homepage");
+    try {
+      const response = await fetch(
+        "https://whiskr-2-default-rtdb.firebaseio.com/tasks.json",
+        {
+          method: "POST",
+          body: JSON.stringify(newTask),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to create the task.");
+      }
+
+      alert("Task created successfully!");
+
+      // Navigate back to the homepage
+      navigate("/homepage");
+    } catch (error) {
+      console.error("Error creating new task:", error);
+      alert("Failed to create the task. Please try again.");
+    }
+  };
+
+  const toggleTaskCompletion = (taskId) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === taskId ? { ...task, completed: !task.completed } : task
+      )
+    );
   };
 
   return (
@@ -67,14 +117,12 @@ export default function CreateTaskPage({ addTask }) {
           className={`pet-option ${petName === "Alfred" ? "selected" : ""}`}
           onClick={() => setPetName("Alfred")}
         >
-          <img src="alfred_image_path" alt="Alfred" />
           <span>Alfred</span>
         </div>
         <div
           className={`pet-option ${petName === "Monia" ? "selected" : ""}`}
           onClick={() => setPetName("Monia")}
         >
-          <img src="monia_image_path" alt="Monia" />
           <span>Monia</span>
         </div>
       </div>

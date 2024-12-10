@@ -373,7 +373,7 @@ height: 49px;
 .tasks-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 50px;
 }
 
 .task-component {
@@ -671,4 +671,6 @@ height: 49px;
 .finish-task-button:hover {
   background-color: #357ab8;
 }
+
+
 
