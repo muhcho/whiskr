@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import FeedingImg from "../assets/Images/feeding.jpg";
 import WaterRefillImg from "../assets/Images/waterrefill.jpg";
 import CleanToiletImg from "../assets/Images/toiletclean.jpg";
@@ -11,13 +11,15 @@ import VetAppointmentImg from "../assets/Images/vetaapoint.jpg";
 
 export default function CreateTaskPage() {
   const navigate = useNavigate();
+  const location = useLocation(); // Retrieve navigation state
+  const preselectedTask = location.state?.selectedTask || null; // Get pre-selected task if passed
 
   const [petName, setPetName] = useState("");
   const [date, setDate] = useState(new Date());
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [repeat, setRepeat] = useState("None");
-  const [selectedTaskType, setSelectedTaskType] = useState(null);
+  const [selectedTaskType, setSelectedTaskType] = useState(preselectedTask); // Set preselected task
   const [notes, setNotes] = useState("");
 
   const taskTypes = [

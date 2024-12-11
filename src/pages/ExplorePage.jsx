@@ -52,6 +52,7 @@ export default function ExplorePage() {
 
   const handleAddTask = () => {
     if (!selectedTask) return;
+    // Navigate to CreateTaskPage and pass the selected task
     navigate("/create-task", { state: { selectedTask } });
   };
 
