@@ -811,21 +811,21 @@ html, body {
 }
 
 .explore-carousel-item img {
-  width: 80%; /* Adjusted image size */
-  height: 80%; /* Adjusted image size */
-  object-fit: fill; /* Ensures no white lines appear */
-  border-radius: 14px; /* Slightly rounded edges for images */
-  margin: 0 auto; /* Centers the image within the container */
+  width: 80%; 
+  height: 80%; 
+  object-fit: fill; 
+  border-radius: 14px; 
+  margin: 0 auto; 
   display: block;
   transition: transform 0.3s ease;
 }
 
 .explore-carousel-item span {
-  margin-top: 4px; /* Reduced space between image and text */
-  font-size: 14px; /* Reduced font size */
-  font-weight: bold; /* Ensures text is bold */
+  margin-top: 4px; 
+  font-size: 14px; 
+  font-weight: bold; 
   color: #333;
-  display: block; /* Ensures text remains visible below the image */
+  display: block; 
 }
 
 /* Highlight selected item */
