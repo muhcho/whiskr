@@ -85,17 +85,16 @@ export default function TaskComponent({ task }) {
 
         {/* Task Notes */}
         {task.notes ? (
-  <div className="task-notes">
-    <img src={NotesIcon} alt="Notes" />
-    <span>{task.notes}</span>
-  </div>
-) : (
-  <div className="task-notes">
-    <img src={NotesIcon} alt="Notes" />
-    <span>No notes provided</span>
-  </div>
-)}
-
+          <div className="task-notes">
+            <img src={NotesIcon} alt="Notes" />
+            <span>{task.notes}</span>
+          </div>
+        ) : (
+          <div className="task-notes">
+            <img src={NotesIcon} alt="Notes" />
+            <span>No notes provided</span>
+          </div>
+        )}
       </div>
 
       {/* Task Completion Button */}

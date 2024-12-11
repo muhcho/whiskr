@@ -31,6 +31,12 @@ html {
   box-sizing: inherit;
 }
 
+body {
+  background-color: #ffffff; /* Explicit white background for the whole app */
+  margin: 0;
+  padding: 0;
+  font-family: "SF Pro", sans-serif;
+}
 
 
 /* ---------- Cat Animation ---------- */
@@ -499,7 +505,7 @@ height: 49px;
 }
 
 /* CreateTaskPage CSS */
-/* CreateTaskPage CSS */
+
 
 .create-task-page {
   padding: 16px;
@@ -714,3 +720,185 @@ height: 49px;
   width: 16px;
   height: 16px;
 }
+
+.time-label {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+
+
+
+/* Fix for overlapping pink border */
+html, body {
+  margin: 0; /* Removes body margin */
+  padding: 0;
+}
+
+/* General styling for Explore Page */
+.explore-page {
+  font-family: SF pro, sans-serif;
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #FEE0EE;
+  padding: 20px;
+  padding-bottom: 100px; /* Adds space to avoid content being hidden */
+  box-sizing: border-box;
+  overflow-y: auto; /* Ensures content is scrollable */
+  margin: 0;
+  transition: background-color 0.3s ease;
+}
+
+.explore-page::-webkit-scrollbar {
+  display: none; /* Hides scrollbar in Chrome, Safari, Edge */
+}
+
+.explore-page {
+  -ms-overflow-style: none; /* Hides scrollbar in IE and Edge */
+  scrollbar-width: none; /* Hides scrollbar in Firefox */
+}
+
+/* Title and description styles */
+.explore-page-title {
+  font-size: 38px;
+  font-weight: bold;
+  color: #000000;
+  margin: 20px 0 5px 0; /* Reduced bottom margin to 5px */
+  text-align: left; /* Aligns text to the left */
+  padding-left: 22px; /* Adds 22px space on the left */
+}
+
+.explore-page-description {
+  font-size: 16px;
+  font-weight: 600; /* Bolder description text */
+  color: #666666;
+  margin-top: 0; /* Removes top margin to bring it closer to the title */
+  margin-bottom: 20px;
+  text-align: left; /* Aligns text to the left */
+  padding-left: 22px; /* Adds 22px space on the left */
+}
+
+
+
+/* Carousel styling */
+.explore-carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 5px; /* Reduced gap */
+  padding: 10px;
+}
+
+.explore-carousel::-webkit-scrollbar {
+  display: none; /* Hides the scrollbar */
+}
+
+.explore-carousel-item {
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+  border-radius: 12px;
+  width: 100px; /* Smaller width */
+  height: 100px; /* Smaller height */
+  text-align: center;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  overflow: hidden; /* Ensures images fill the box */
+  
+}
+
+.explore-carousel-item img {
+  width: 80%; /* Adjusted image size */
+  height: 80%; /* Adjusted image size */
+  object-fit: fill; /* Ensures no white lines appear */
+  border-radius: 14px; /* Slightly rounded edges for images */
+  margin: 0 auto; /* Centers the image within the container */
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.explore-carousel-item span {
+  margin-top: 4px; /* Reduced space between image and text */
+  font-size: 14px; /* Reduced font size */
+  font-weight: bold; /* Ensures text is bold */
+  color: #333;
+  display: block; /* Ensures text remains visible below the image */
+}
+
+/* Highlight selected item */
+.explore-carousel-item.selected img {
+  border: 4px solid #44B6FF; /* Highlighted blue border */
+  transform: scale(1.02); /* Subtle zoom effect on selection */
+}
+
+/* Task Details */
+.explore-task-details {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: center;
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.explore-task-details h2 {
+  font-size: 32px; /* Adjusted font size */
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: #000000;
+  background: linear-gradient(to right, #000000, #44B6FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.explore-task-details h3 {
+  font-size: 24px; /* Slightly larger font for headings */
+  font-weight: bold; 
+  margin-top: 20px; /* Add space above each heading */
+  margin-bottom: 10px; /* Add space below each heading */
+  text-align: center; /* Align headings to the left */
+}
+
+.explore-task-details p {
+  font-size: 16px; /* Slightly larger font for content */
+  font-weight: 500; /* Medium weight for better readability */
+  margin: 10px 0;
+  line-height: 1.5;
+  text-align: center; /* Align text to the left */
+}
+
+.explore-task-details img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin: 20px 0;
+  align-items: center;
+}
+
+/* Add Task Button */
+.add-task-button {
+  position: fixed;
+  bottom: 100px;
+  right: 22px;
+  background-color: #44B6FF;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  font-family: "SF Pro", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  gap: 10px;
+}
+

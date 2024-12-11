@@ -21,20 +21,18 @@ export default function CreateTaskPage() {
   const [notes, setNotes] = useState("");
 
   const taskTypes = [
-    { name: "Feeding", image: FeedingImg, color: "#D6F2FE" }, // Light Blue
-    { name: "Water Refill", image: WaterRefillImg, color: "#FFD7D6" }, // Light Pink
-    { name: "Clean Toilet", image: CleanToiletImg, color: "#FFF4D8" }, // Light Yellow
-    { name: "Give Bath", image: GiveBathImg, color: "#E3D7FF" }, // Light Purple
-    { name: "Medication", image: MedicationImg, color: "#FEA99A" }, // Light Coral
-    { name: "Playtime", image: PlaytimeImg, color: "#FFF4D8" }, // Light Yellow
-    { name: "Buy Food", image: BuyFoodImg, color: "#ECBD1D" }, // Yellow
-    { name: "Vet Appointment", image: VetAppointmentImg, color: "#FE7149" }, // Orange
+    { name: "Feeding", image: FeedingImg, color: "#D6F2FE" },
+    { name: "Water Refill", image: WaterRefillImg, color: "#FFD7D6" },
+    { name: "Clean Toilet", image: CleanToiletImg, color: "#FFF4D8" },
+    { name: "Give Bath", image: GiveBathImg, color: "#E3D7FF" },
+    { name: "Medication", image: MedicationImg, color: "#FEA99A" },
+    { name: "Playtime", image: PlaytimeImg, color: "#FFF4D8" },
+    { name: "Buy Food", image: BuyFoodImg, color: "#ECBD1D" },
+    { name: "Vet Appointment", image: VetAppointmentImg, color: "#FE7149" },
   ];
 
   const calculateDuration = () => {
-    if (!startTime || !endTime) {
-      return "Anytime";
-    }
+    if (!startTime || !endTime) return "Anytime";
     const [startHour, startMinute] = startTime.split(":").map(Number);
     const [endHour, endMinute] = endTime.split(":").map(Number);
 
@@ -42,12 +40,7 @@ export default function CreateTaskPage() {
     const endTotalMinutes = endHour * 60 + endMinute;
 
     const durationMinutes = endTotalMinutes - startTotalMinutes;
-
-    if (durationMinutes <= 0) {
-      return "Invalid time"; // Handles cases where startTime >= endTime
-    }
-
-    return `${durationMinutes} minutes`;
+    return durationMinutes > 0 ? `${durationMinutes} minutes` : "Invalid time";
   };
 
   const handleFinishTask = async () => {
@@ -57,7 +50,7 @@ export default function CreateTaskPage() {
     }
 
     const newTask = {
-      nameOfTask: selectedTaskType.name, // Assign the name of the selected task
+      nameOfTask: selectedTaskType.name,
       petName,
       date: date.toISOString().split("T")[0],
       startTime: startTime || "Anytime",
@@ -65,10 +58,9 @@ export default function CreateTaskPage() {
       duration: calculateDuration(),
       repeat,
       notes,
-      color: selectedTaskType.color, // Assign the task color
+      color: selectedTaskType.color,
       completed: false,
     };
-
 
     try {
       const response = await fetch(
@@ -80,12 +72,9 @@ export default function CreateTaskPage() {
         }
       );
 
-      if (!response.ok) {
-        throw new Error("Failed to create the task.");
-      }
+      if (!response.ok) throw new Error("Failed to create the task.");
 
       alert("Task created successfully!");
-
       navigate("/homepage");
     } catch (error) {
       console.error("Error creating new task:", error);
@@ -115,35 +104,39 @@ export default function CreateTaskPage() {
 
       {/* Date and Time Selection */}
       <div className="date-time-repeat">
-        <div className="date-picker">
-          <button onClick={() => setDate(new Date(date.setDate(date.getDate() - 1)))}>{"<"}</button>
-          <span>{date.toDateString()}</span>
-          <button onClick={() => setDate(new Date(date.setDate(date.getDate() + 1)))}>{">"}</button>
+        <div className="time-row">
+          <div className="time-block">
+            <label className="time-label">Start Time:</label>
+            <input
+              type="time"
+              className="time-input"
+              value={startTime}
+              onChange={(e) => setStartTime(e.target.value)}
+            />
+          </div>
+          <div className="time-block">
+            <label className="time-label">End Time:</label>
+            <input
+              type="time"
+              className="time-input"
+              value={endTime}
+              onChange={(e) => setEndTime(e.target.value)}
+            />
+          </div>
         </div>
-        <input
-          type="time"
-          className="time-input"
-          placeholder="Start Time"
-          value={startTime}
-          onChange={(e) => setStartTime(e.target.value)}
-        />
-        <input
-          type="time"
-          className="time-input"
-          placeholder="End Time"
-          value={endTime}
-          onChange={(e) => setEndTime(e.target.value)}
-        />
-        <select
-          className="repeat-select"
-          value={repeat}
-          onChange={(e) => setRepeat(e.target.value)}
-        >
-          <option value="None">None</option>
-          <option value="Everyday">Everyday</option>
-          <option value="Monday">Every Monday</option>
-          <option value="Friday">Every Friday</option>
-        </select>
+        <div className="repeat-block">
+          <label className="time-label">Repeat:</label>
+          <select
+            className="repeat-select"
+            value={repeat}
+            onChange={(e) => setRepeat(e.target.value)}
+          >
+            <option value="None">None</option>
+            <option value="Everyday">Everyday</option>
+            <option value="Monday">Every Monday</option>
+            <option value="Friday">Every Friday</option>
+          </select>
+        </div>
       </div>
 
       {/* Task Type Selection */}
