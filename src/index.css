@@ -789,7 +789,7 @@ html, body {
   display: flex;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  gap: 5px; /* Reduced gap */
+  gap: -0px; /* Reduced gap */
   padding: 10px;
 }
 
@@ -801,8 +801,8 @@ html, body {
   flex: 0 0 auto;
   scroll-snap-align: center;
   border-radius: 12px;
-  width: 100px; /* Smaller width */
-  height: 100px; /* Smaller height */
+  width: 120px; /* Smaller width */
+  height: 120px; /* Smaller height */
   text-align: center;
   transition: border-color 0.3s ease, transform 0.3s ease;
   cursor: pointer;
@@ -814,7 +814,7 @@ html, body {
   width: 80%; 
   height: 80%; 
   object-fit: fill; 
-  border-radius: 14px; 
+  border-radius: 24px; 
   margin: 0 auto; 
   display: block;
   transition: transform 0.3s ease;
@@ -830,7 +830,7 @@ html, body {
 
 /* Highlight selected item */
 .explore-carousel-item.selected img {
-  border: 4px solid #44B6FF; /* Highlighted blue border */
+  border: 5px solid #44B6FF; /* Highlighted blue border */
   transform: scale(1.02); /* Subtle zoom effect on selection */
 }
 
@@ -841,14 +841,14 @@ html, body {
   flex-direction: column;
   justify-content: flex-start;
   text-align: center;
-  padding: 20px;
+  padding-bottom: 20px;
   border-radius: 12px;
-  max-width: 400px;
+  max-width: 320px;
   margin: 0 auto;
 }
 
 .explore-task-details h2 {
-  font-size: 32px; /* Adjusted font size */
+  font-size: 38px; /* Adjusted font size */
   font-weight: bold;
   margin-bottom: 4px;
   color: #000000;
@@ -858,7 +858,7 @@ html, body {
 }
 
 .explore-task-details h3 {
-  font-size: 24px; /* Slightly larger font for headings */
+  font-size: 28px; /* Slightly larger font for headings */
   font-weight: bold; 
   margin-top: 20px; /* Add space above each heading */
   margin-bottom: 10px; /* Add space below each heading */
@@ -866,7 +866,7 @@ html, body {
 }
 
 .explore-task-details p {
-  font-size: 16px; /* Slightly larger font for content */
+  font-size: 20px; /* Slightly larger font for content */
   font-weight: 500; /* Medium weight for better readability */
   margin: 10px 0;
   line-height: 1.5;
@@ -901,4 +901,201 @@ html, body {
   font-weight: 700;
   gap: 10px;
 }
+
+
+
+/* DonationsPage.css */
+
+.donations-page {
+  font-family: "SF Pro", sans-serif;
+  padding: 20px;
+  background-color: #fefefe;
+}
+
+.donations-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.donations-title {
+  font-size: 38px;
+  font-weight: bold;
+  color: #000;
+}
+
+.donations-date {
+  font-size: 20px;
+  color: #666;
+
+}
+
+.donation-points-section {
+  margin-top: 20px;
+}
+
+.donation-points-section h2 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #000;
+}
+
+.donation-points-card {
+  background: linear-gradient(to right, #44B6FF, #b0e0e6);
+  border-radius: 12px;
+  padding: 16px;
+  padding-top: 5px;
+  margin-top: 10px;
+  color: #fff;
+}
+
+.points-amount {
+  font-size: 28px;
+  font-weight: bold;
+  padding-bottom: 1px;
+  padding-top: -20px;
+
+}
+
+.points-description {
+  font-size: 16px;
+  margin-top: 10px;
+  font-family: "SF Pro", sans-serif;
+}
+
+.heart-icon {
+  font-size: 24px;
+}
+
+.this-week {
+  font-size: 18px;
+  color: #44b6ff;
+  margin-top: 40px;
+  margin-bottom: -16px;
+
+}
+
+.in-need {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+/* AnimalPost.css */
+
+.animal-post {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.animal-image-container {
+  position: relative;
+  width: 100%;
+  height: 380px; /* Increased height for bigger images */
+  overflow: hidden;
+}
+
+.animal-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.needs-help-banner {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: rgba(89, 74, 60, 0.4);
+  color: #fff;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 18px;
+}
+
+.animal-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(89, 74, 60, 0.4);
+  color: #fff;
+  padding: 10px;
+  text-align: left;
+}
+
+.animal-adjective {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.animal-name {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.animal-needs {
+  font-size: 16px;
+}
+
+.shelter-info-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 20px;
+  margin-top: 5px; /* Close to image */
+}
+
+.shelter-details {
+  display: flex;
+  flex-direction: row; /* Keeps the image and text in the same row */
+  align-items: flex-start; /* Aligns items at the start of the container */
+  gap: 10px; 
+}
+
+.shelter-text {
+  display: flex;
+  flex-direction: column;
+  margin-top: -10px; /* Stacks name and location vertically */
+}
+
+.shelter-logo {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  margin-bottom: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.shelter-name {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: -6px; /* Space before location */
+}
+
+.shelter-location {
+  font-size: 14px;
+  color: #666;
+}
+
+.donate-button {
+  background-color: #44b6ff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.donate-button:hover {
+  background-color: #357ab8;
+}
+
+
 
