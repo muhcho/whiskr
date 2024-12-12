@@ -11,15 +11,15 @@ import VetAppointmentImg from "../assets/Images/vetaapoint.jpg";
 
 export default function CreateTaskPage() {
   const navigate = useNavigate();
-  const location = useLocation(); // Retrieve navigation state
-  const preselectedTask = location.state?.selectedTask || null; // Get pre-selected task if passed
+  const location = useLocation();
+  const preselectedTask = location.state?.selectedTask || null;
 
+  const [taskName, setTaskName] = useState(""); 
   const [petName, setPetName] = useState("");
   const [date, setDate] = useState(new Date());
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
-  const [repeat, setRepeat] = useState("None");
-  const [selectedTaskType, setSelectedTaskType] = useState(preselectedTask); // Set preselected task
+  const [selectedTaskType, setSelectedTaskType] = useState(preselectedTask);
   const [notes, setNotes] = useState("");
 
   const taskTypes = [
@@ -33,32 +33,31 @@ export default function CreateTaskPage() {
     { name: "Vet Appointment", image: VetAppointmentImg, color: "#FE7149" },
   ];
 
-  const calculateDuration = () => {
-    if (!startTime || !endTime) return "Anytime";
-    const [startHour, startMinute] = startTime.split(":").map(Number);
-    const [endHour, endMinute] = endTime.split(":").map(Number);
+  const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-    const startTotalMinutes = startHour * 60 + startMinute;
-    const endTotalMinutes = endHour * 60 + endMinute;
-
-    const durationMinutes = endTotalMinutes - startTotalMinutes;
-    return durationMinutes > 0 ? `${durationMinutes} minutes` : "Invalid time";
+  const handleDateChange = (days) => {
+    setDate((prevDate) => {
+      const newDate = new Date(prevDate);
+      newDate.setDate(newDate.getDate() + days);
+      return newDate;
+    });
   };
 
+  const formattedDate = `${daysOfWeek[date.getDay()]}, ${String(date.getDate()).padStart(2, "0")}-${String(date.getMonth() + 1).padStart(2, "0")}-${date.getFullYear()}`;
+
   const handleFinishTask = async () => {
-    if (!selectedTaskType || !petName) {
-      alert("Please select a task type and pet name!");
+    if (!taskName || !selectedTaskType || !petName) {
+      alert("Please provide a task name, select a task type, and pet name!");
       return;
     }
 
     const newTask = {
+      taskName,
       nameOfTask: selectedTaskType.name,
       petName,
       date: date.toISOString().split("T")[0],
       startTime: startTime || "Anytime",
       endTime: endTime || "Anytime",
-      duration: calculateDuration(),
-      repeat,
       notes,
       color: selectedTaskType.color,
       completed: false,
@@ -88,6 +87,18 @@ export default function CreateTaskPage() {
     <div className="create-task-page">
       <h1 className="page-title">Create Task</h1>
 
+      {/* Task Name Input */}
+      <div className="task-name-section">
+        <label className="task-name-label">Your Task:</label>
+        <input
+          type="text"
+          className="task-name-input"
+          placeholder="Enter task name"
+          value={taskName}
+          onChange={(e) => setTaskName(e.target.value)}
+        />
+      </div>
+
       {/* Pet Selection */}
       <div className="pet-selection">
         <div
@@ -101,6 +112,20 @@ export default function CreateTaskPage() {
           onClick={() => setPetName("Monia")}
         >
           <span>Monia</span>
+        </div>
+      </div>
+
+      {/* Date Selection */}
+      <div className="date-selection">
+        <label className="date-label">Date:</label>
+        <div className="date-picker">
+          <button className="date-arrow" onClick={() => handleDateChange(-1)}>
+            ◀
+          </button>
+          <span className="selected-date">{formattedDate}</span>
+          <button className="date-arrow" onClick={() => handleDateChange(1)}>
+            ▶
+          </button>
         </div>
       </div>
 
@@ -125,19 +150,6 @@ export default function CreateTaskPage() {
               onChange={(e) => setEndTime(e.target.value)}
             />
           </div>
-        </div>
-        <div className="repeat-block">
-          <label className="time-label">Repeat:</label>
-          <select
-            className="repeat-select"
-            value={repeat}
-            onChange={(e) => setRepeat(e.target.value)}
-          >
-            <option value="None">None</option>
-            <option value="Everyday">Everyday</option>
-            <option value="Monday">Every Monday</option>
-            <option value="Friday">Every Friday</option>
-          </select>
         </div>
       </div>
 

@@ -267,7 +267,7 @@ height: 49px;
 }
 
 .homepage-title {
-  font-size: 26px; /* Increased size for "Mette's tasks" */
+  font-size: 28px; /* Increased size for "Mette's tasks" */
   font-weight: bold;
   color: var(--text-color-dark);
   margin: 0;
@@ -317,7 +317,7 @@ height: 49px;
 }
 
 .homepage-day {
-  font-size: 36px; /* Larger day font */
+  font-size: 38px; /* Larger day font */
   font-weight: 800;
   margin: 0;
   color: var(--text-color-dark);
@@ -505,17 +505,19 @@ height: 49px;
 }
 
 /* CreateTaskPage CSS */
-
-
 .create-task-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Space out the sections evenly */
   padding: 16px;
   font-family: "SF Pro", sans-serif;
 }
 
 .page-title {
-  font-size: 28px;
+  font-size: 38px;
   font-weight: bold;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .task-name-input {
@@ -530,7 +532,7 @@ height: 49px;
 .pet-selection {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 }
 
 .pet-option {
@@ -538,35 +540,69 @@ height: 49px;
   justify-content: center;
   align-items: center;
   width: calc(50% - 8px);
-  padding: 12px;
+  padding: 10px;
   border: 2px solid #f1f1f1;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   text-align: center;
   transition: all 0.3s ease-in-out;
 }
+
+/* Task Name Section */
+.task-name-section {
+  margin-bottom: 16px; /* Add some spacing below the task name field */
+}
+
+.task-name-label {
+  font-size: 16px; /* Match the font size of other labels */
+  font-weight: bold; /* Bold label for consistency */
+  display: block; /* Ensures the label is on its own line */
+  margin-bottom: 8px; /* Add spacing between the label and input field */
+}
+
+.task-name-input {
+  width: 100%; /* Takes full width of the container */
+  padding: 14px; /* Add padding for better usability */
+  border: 2px solid #f1f1f1; /* Match border style of other inputs */
+  border-radius: 8px; /* Rounded corners for consistency */
+  font-size: 14px; /* Match font size of other input fields */
+  font-family: "SF Pro", sans-serif; /* Use the same font */
+  box-sizing: border-box; /* Include padding and border in element's width */
+  margin-bottom: 2px;
+}
+
+.task-name-input:focus {
+  border-color: #44b6ff; /* Highlighted border color on focus */
+  outline: none; /* Remove default focus outline */
+}
+
 
 .pet-option.selected {
   border: 2px solid #44b6ff;
   background-color: rgba(68, 182, 255, 0.1);
 }
 
+
 .date-time-repeat {
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 }
 
 .date-picker {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .date-picker span {
   font-size: 14px;
   font-weight: 600;
+}
+
+.date-label {
+  font-weight: bold;
 }
 
 .date-picker button {
@@ -611,8 +647,8 @@ height: 49px;
   flex-direction: column;
   align-items: center;
   width: calc(25% - 8px);
-  margin: 6px 4px;
-  padding: 8px;
+  margin: 2px 2px;
+  padding: 4px;
   border: 2px solid transparent;
   border-radius: 8px;
   cursor: pointer;
@@ -644,6 +680,7 @@ height: 49px;
 }
 
 .finish-task-button {
+  margin-top: 5px;
   width: 100%;
   padding: 12px;
   background-color: #44b6ff;
@@ -745,7 +782,8 @@ html, body {
   display: flex;
   flex-direction: column;
   background-color: #FEE0EE;
-  padding: 20px;
+  padding: 0px;
+  padding-top: 15px;
   padding-bottom: 100px; /* Adds space to avoid content being hidden */
   box-sizing: border-box;
   overflow-y: auto; /* Ensures content is scrollable */
@@ -780,6 +818,7 @@ html, body {
   margin-bottom: 20px;
   text-align: left; /* Aligns text to the left */
   padding-left: 22px; /* Adds 22px space on the left */
+  margin-right: 10px;
 }
 
 
@@ -790,7 +829,7 @@ html, body {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   gap: -0px; /* Reduced gap */
-  padding: 10px;
+  padding: 4px;
 }
 
 .explore-carousel::-webkit-scrollbar {
@@ -908,14 +947,20 @@ html, body {
 
 .donations-page {
   font-family: "SF Pro", sans-serif;
-  padding: 20px;
+  padding: 22px;
+  margin-top: -10px;
   background-color: #fefefe;
+  box-sizing: border-box;
+  overflow-y: auto; 
+  height: 100%;
+
 }
 
 .donations-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
 }
 
 .donations-title {
@@ -986,7 +1031,7 @@ html, body {
 .animal-post {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   border-radius: 12px;
   overflow: hidden;
   background-color: #fff;
@@ -1003,6 +1048,7 @@ html, body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 10px;
 }
 
 .needs-help-banner {
@@ -1026,6 +1072,7 @@ html, body {
   color: #fff;
   padding: 10px;
   text-align: left;
+  border-radius: 10px;
 }
 
 .animal-adjective {
@@ -1046,7 +1093,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 5px 20px;
+  padding: 5px 10px;
   margin-top: 5px; /* Close to image */
 }
 
@@ -1099,3 +1146,221 @@ html, body {
 
 
 
+.adoption-video-section {
+  position: relative;
+  text-align: center;
+}
+
+.video-container {
+  position: relative;
+  margin-top: 10px;
+}
+
+.adoption-video {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.video-overlay-text {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.shelters-section {
+  margin-top: 30px; /* Add space above the section */
+  padding-top: 20px; /* Optional: Add inner spacing */
+  margin-bottom: 40px;
+}
+
+.shelters-background {
+  padding: 20px;
+  background-color: rgba(255, 215, 214, 0.5);
+  border-radius: 8px;
+}
+
+.video-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.adoption-video {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.video-overlay-text {
+  position: absolute;
+  top: 15%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+  font-size: 22px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  text-align: left;
+}
+
+.shelters-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.shelter-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.shelter-item {
+  display: flex;
+  align-items: flex-start; /* Align items to the top for wrapping */
+  justify-content: space-between; /* Space between text and button */
+  margin-bottom: 20px; /* Add spacing between items */
+  flex-wrap: nowrap; /* Ensure no elements drop below */
+}
+
+
+.shelter-logo {
+  width: 60px;
+  height: 60px;
+  margin-right: 15px;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.shelter-text {
+  display: flex;
+  flex-direction: column; /* Stack name and location vertically */
+  flex-grow: 1; /* Allows text to expand */
+  max-width: calc(100% - 100px); /* Adjust to reserve space for the button */
+  margin-right: 10px; /* Adds spacing from the button */
+  white-space: normal; /* Allow multi-line wrapping */
+}
+
+.visit-website-button {
+  background-color: gray;
+  color: white;
+  font-weight: bold;
+  border-radius: 24px;
+  padding: 15px 20px;
+  text-decoration: none;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.shelter-location {
+  font-size: 14px;
+  color: gray;
+  margin: 10px 0 0 0; /* Adds spacing from the name */
+}
+
+
+
+.cats-helped-section {
+  margin: 20px 0;
+  padding: 0px;
+}
+
+.cats-helped-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.cats-helped-scroll {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 8px 0;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.cats-helped-scroll::-webkit-scrollbar {
+  display: none; /* Hides scrollbar for Chrome, Safari, and Edge */
+}
+
+.smaller-animal-post {
+  width: 250px; /* Adjusted for larger images */
+  border-radius: 15px;
+  flex-shrink: 0;
+  scroll-snap-align: center;
+  overflow: hidden;
+}
+
+.smaller-animal-image-container {
+  position: relative;
+  width: 100%;
+  height: 250px; /* Adjusted for larger images */
+}
+
+.smaller-animal-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.smaller-animal-overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  text-align: left;
+  padding: 10px 0;
+  font-size: 14px;
+  border-radius: 12px;
+}
+
+.smaller-animal-adjective {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  margin-left: 10px;
+}
+
+.smaller-animal-name {
+  font-size: 18px;
+  margin-left: 10px;
+}
+
+.smaller-shelter-info {
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  padding-top: 8px;
+  gap: 10px;
+}
+
+.smaller-shelter-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.smaller-shelter-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.smaller-shelter-name {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.smaller-shelter-location {
+  font-size: 12px;
+  color: gray;
+  margin: 0;
+}

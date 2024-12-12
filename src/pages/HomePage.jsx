@@ -28,6 +28,7 @@ export default function HomePage() {
         const formattedTasks = Object.entries(data || {}).map(([id, task]) => ({
           id,
           ...task,
+          notes: task.notes || "No additional notes provided", // Handle notes separately
         }));
         setTasks(formattedTasks);
       } catch (error) {
@@ -141,7 +142,7 @@ export default function HomePage() {
       {/* Tasks */}
       <div className="tasks-container">
         {filteredTasks.length === 0 ? (
-          <p>Yay! You don't have any tasks for today. ✨</p>
+          <p>Yay! You don't have any tasks for today. </p>
         ) : (
           filteredTasks.map((task) => (
             <div
@@ -184,10 +185,9 @@ export default function HomePage() {
                       <img src={DurationIcon} alt="Duration" />
                       <span>{task.duration}</span>
                     </div>
-                    {task.nameOfTask === "Feeding" && (
-                      <div className="task-amount">
-                        <img src={AmountIcon} alt="Amount" />
-                        <span>{task.amount} dry food</span>
+                    {task.notes && (
+                      <div className="task-notes">
+                        <span>Notes: {task.notes}</span>
                       </div>
                     )}
                   </div>
