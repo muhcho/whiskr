@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ThreeDotsIcon from "../assets/Images/threedotstask.svg";
 import NotificationIcon from "../assets/Images/notificationicon.svg";
 
 export default function AccountPage() {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState({
     userName: "Mette Jensen",
     petNames: ["Alfred", "Monia"],
@@ -48,7 +50,11 @@ export default function AccountPage() {
       </div>
 
       {/* Reminder Section */}
-      <div className="reminder-section-unique">
+      <div
+        className="reminder-section-unique"
+        onClick={() => navigate("/challenges")} // Navigate to ChallengesPage
+        style={{ cursor: "pointer" }} // Indicate clickability
+      >
         <div className="notification-icon-wrapper-unique">
           <img
             src={NotificationIcon}
