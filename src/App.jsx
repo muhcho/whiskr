@@ -8,6 +8,8 @@ import CreateChallengePage from "./pages/CreateChallengePage";
 import ChallengesPage from "./pages/ChallengesPage";
 import AccountPage from "./pages/AccountPage";
 import NavBar from "./components/NavBar";
+import UserPostDetailsPage from "./pages/UserPostDetailsPage";
+import EditPostPage from "./pages/EditPostPage";
 
 function App() {
   const location = useLocation(); // Access the current route location
@@ -25,6 +27,10 @@ function App() {
         <Route path="/create-challenge" element={<CreateChallengePage />} />
         <Route path="/challenges" element={<ChallengesPage />} />
         <Route path="/account" element={<AccountPage />} />
+        <Route path="/post/:id" element={<UserPostDetailsPage />} />
+        <Route path="/edit-post/:id" element={<EditPostPage />} />
+
+
       </Routes>
     </main>
   );
