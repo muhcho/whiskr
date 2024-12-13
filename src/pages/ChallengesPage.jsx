@@ -6,7 +6,25 @@ export default function ChallengesPage() {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [showAll, setShowAll] = useState(false);
+  const [userName, setUserName] = useState("");
 
+  // Fetch user name
+  useEffect(() => {
+    async function fetchUserName() {
+      try {
+        const response = await fetch("https://whiskr-2-default-rtdb.firebaseio.com/user.json");
+        const data = await response.json();
+        setUserName(data?.name || "Anonymous"); // Default to "Anonymous" if no name
+      } catch (error) {
+        console.error("Error fetching user name:", error);
+        setUserName("Anonymous");
+      }
+    }
+
+    fetchUserName();
+  }, []);
+
+  // Fetch challenges
   useEffect(() => {
     async function fetchChallenges() {
       try {
@@ -18,8 +36,7 @@ export default function ChallengesPage() {
           id: key,
           ...data[key],
         }));
-        // Sort posts by newest first (optional but good UX)
-        setPosts(postsArray.reverse());
+        setPosts(postsArray.reverse()); // Sort posts by newest first
       } catch (error) {
         console.error("Error fetching challenges:", error);
       }

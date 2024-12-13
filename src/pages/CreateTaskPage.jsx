@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import FeedingImg from "../assets/Images/feeding.jpg";
 import WaterRefillImg from "../assets/Images/waterrefill.jpg";
@@ -14,7 +14,8 @@ export default function CreateTaskPage() {
   const location = useLocation();
   const preselectedTask = location.state?.selectedTask || null;
 
-  const [petName, setPetName] = useState("");
+  const [petNames, setPetNames] = useState([]); // Dynamically load pet names
+  const [petName, setPetName] = useState(""); // Selected pet
   const [date, setDate] = useState(new Date());
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
@@ -34,6 +35,17 @@ export default function CreateTaskPage() {
   ];
 
   const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+  useEffect(() => {
+    // Fetch pet names from localStorage
+    const storedUserData = JSON.parse(localStorage.getItem("userData"));
+    if (storedUserData?.petNames) {
+      setPetNames(storedUserData.petNames);
+    } else {
+      // Default pets if no data exists
+      setPetNames(["Alfred", "Monia"]);
+    }
+  }, []);
 
   const handleDateChange = (days) => {
     setDate((prevDate) => {
@@ -102,18 +114,15 @@ export default function CreateTaskPage() {
 
       {/* Pet Selection */}
       <div className="pet-selection">
-        <div
-          className={`pet-option ${petName === "Alfred" ? "selected" : ""}`}
-          onClick={() => setPetName("Alfred")}
-        >
-          <span>Alfred</span>
-        </div>
-        <div
-          className={`pet-option ${petName === "Monia" ? "selected" : ""}`}
-          onClick={() => setPetName("Monia")}
-        >
-          <span>Monia</span>
-        </div>
+        {petNames.map((name) => (
+          <div
+            key={name}
+            className={`pet-option ${petName === name ? "selected" : ""}`}
+            onClick={() => setPetName(name)}
+          >
+            <span>{name}</span>
+          </div>
+        ))}
       </div>
 
       {/* Date Selection */}

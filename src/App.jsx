@@ -10,6 +10,7 @@ import AccountPage from "./pages/AccountPage";
 import NavBar from "./components/NavBar";
 import UserPostDetailsPage from "./pages/UserPostDetailsPage";
 import EditPostPage from "./pages/EditPostPage";
+import CreateAccountPage from "./pages/CreateAccountPage";
 
 function App() {
   const location = useLocation(); // Access the current route location
@@ -29,6 +30,7 @@ function App() {
         <Route path="/account" element={<AccountPage />} />
         <Route path="/post/:id" element={<UserPostDetailsPage />} />
         <Route path="/edit-post/:id" element={<EditPostPage />} />
+        <Route path="/create-account" element={<CreateAccountPage />} />
 
 
       </Routes>

@@ -8,6 +8,10 @@ export default function CreateChallengePage() {
   const [postImage, setPostImage] = useState(""); // Image URL or file
   const [description, setDescription] = useState("");
 
+  // Get user data from localStorage
+  const storedUserData = JSON.parse(localStorage.getItem("userData"));
+  const userName = storedUserData?.userName || "Anonymous"; // Use the name the user set during account creation
+
   const handleSubmit = async () => {
     if (!postImage || !description) {
       alert("Please fill out all fields.");
@@ -15,7 +19,7 @@ export default function CreateChallengePage() {
     }
 
     const newPost = {
-      name: "Mette", // Hardcoded name
+      name: userName, // Dynamic user name
       image: "https://via.placeholder.com/50", // Default user avatar
       postImage,
       description,

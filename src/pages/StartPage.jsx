@@ -3,13 +3,16 @@ import { useNavigate } from "react-router-dom";
 import CatAnimation from "../components/CatAnimation";
 import WhiskrLogo from "../assets/Images/WhiskrLogo.svg";
 
-
 export default function StartPage() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const handleStartClick = () => {
-        navigate("/homepage"); // Navigates to the HomePage
-      };
+  const handleStartClick = () => {
+    navigate("/homepage"); // Navigates to the HomePage
+  };
+
+  const handleCreateAccountClick = () => {
+    navigate("/create-account"); // Navigate to CreateAccountPage
+  };
 
   return (
     <div className="start-page">
@@ -21,7 +24,13 @@ export default function StartPage() {
       <button className="start-page-button" onClick={handleStartClick}>
         Start
       </button>
-      <p className="start-page-create-account">Create account</p>
+      <p
+        className="start-page-create-account"
+        onClick={handleCreateAccountClick}
+        style={{ cursor: "pointer" }} // Makes the text clickable
+      >
+        Create account
+      </p>
     </div>
   );
 }
