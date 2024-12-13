@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CalendarIcon from "../assets/Images/calendar_homepage.svg";
 import DurationIcon from "../assets/Images/duration_icon.svg";
-import AmountIcon from "../assets/Images/amout_icon.svg";
+import AmountIcon from "../assets/Images/amout_icon.svg"; // Icon for food amount
 import ThreeDotsIcon from "../assets/Images/threedotstask.svg";
 import PlusButton from "../assets/Images/plusButton.svg";
 import { useNavigate } from "react-router-dom";
@@ -29,6 +29,7 @@ export default function HomePage() {
           id,
           ...task,
           notes: task.notes || "No additional notes provided", // Handle notes separately
+          foodAmount: task.foodAmount || null, // Ensure foodAmount is available for feeding tasks
         }));
         setTasks(formattedTasks);
       } catch (error) {
@@ -185,6 +186,13 @@ export default function HomePage() {
                       <img src={DurationIcon} alt="Duration" />
                       <span>{task.duration}</span>
                     </div>
+                    {/* Food Amount for Feeding Task */}
+                    {task.nameOfTask === "Feeding" && task.foodAmount && (
+                      <div className="task-amount">
+                        <img src={AmountIcon} alt="Food Amount" />
+                        <span>{task.foodAmount} grams</span>
+                      </div>
+                    )}
                     {task.notes && (
                       <div className="task-notes">
                         <span>Notes: {task.notes}</span>

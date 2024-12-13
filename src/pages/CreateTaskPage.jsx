@@ -14,13 +14,13 @@ export default function CreateTaskPage() {
   const location = useLocation();
   const preselectedTask = location.state?.selectedTask || null;
 
-  const [taskName, setTaskName] = useState(""); 
   const [petName, setPetName] = useState("");
   const [date, setDate] = useState(new Date());
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [selectedTaskType, setSelectedTaskType] = useState(preselectedTask);
   const [notes, setNotes] = useState("");
+  const [foodAmount, setFoodAmount] = useState("");
 
   const taskTypes = [
     { name: "Feeding", image: FeedingImg, color: "#D6F2FE" },
@@ -46,21 +46,22 @@ export default function CreateTaskPage() {
   const formattedDate = `${daysOfWeek[date.getDay()]}, ${String(date.getDate()).padStart(2, "0")}-${String(date.getMonth() + 1).padStart(2, "0")}-${date.getFullYear()}`;
 
   const handleFinishTask = async () => {
-    if (!taskName || !selectedTaskType || !petName) {
-      alert("Please provide a task name, select a task type, and pet name!");
+    if (!selectedTaskType || !petName) {
+      alert("Please select a task type and pet name!");
       return;
     }
 
     const newTask = {
-      taskName,
       nameOfTask: selectedTaskType.name,
       petName,
       date: date.toISOString().split("T")[0],
       startTime: startTime || "Anytime",
       endTime: endTime || "Anytime",
+      duration: startTime && endTime ? `${calculateDuration()} minutes` : "Anytime",
       notes,
       color: selectedTaskType.color,
       completed: false,
+      foodAmount: selectedTaskType.name === "Feeding" ? foodAmount : undefined,
     };
 
     try {
@@ -83,21 +84,21 @@ export default function CreateTaskPage() {
     }
   };
 
+  const calculateDuration = () => {
+    if (!startTime || !endTime) return "Anytime";
+    const [startHour, startMinute] = startTime.split(":").map(Number);
+    const [endHour, endMinute] = endTime.split(":").map(Number);
+
+    const startTotalMinutes = startHour * 60 + startMinute;
+    const endTotalMinutes = endHour * 60 + endMinute;
+
+    const durationMinutes = endTotalMinutes - startTotalMinutes;
+    return durationMinutes > 0 ? durationMinutes : "Invalid time";
+  };
+
   return (
     <div className="create-task-page">
       <h1 className="page-title">Create Task</h1>
-
-      {/* Task Name Input */}
-      <div className="task-name-section">
-        <label className="task-name-label">Your Task:</label>
-        <input
-          type="text"
-          className="task-name-input"
-          placeholder="Enter task name"
-          value={taskName}
-          onChange={(e) => setTaskName(e.target.value)}
-        />
-      </div>
 
       {/* Pet Selection */}
       <div className="pet-selection">
@@ -169,6 +170,20 @@ export default function CreateTaskPage() {
         ))}
       </div>
 
+      {/* Additional Input for Feeding */}
+      {selectedTaskType?.name === "Feeding" && (
+        <div className="feeding-input-section">
+          <label className="feeding-input-label">Grams of Dry Food:</label>
+          <input
+            type="number"
+            className="feeding-input"
+            placeholder="Enter amount (grams)"
+            value={foodAmount}
+            onChange={(e) => setFoodAmount(e.target.value)}
+          />
+        </div>
+      )}
+
       {/* Notes Input */}
       <textarea
         className="notes-input"
@@ -178,9 +193,11 @@ export default function CreateTaskPage() {
       ></textarea>
 
       {/* Finish Task Button */}
-      <button className="finish-task-button" onClick={handleFinishTask}>
-        Finish Task
-      </button>
+      <div className="finish-task-button-container">
+        <button className="finish-task-button" onClick={handleFinishTask}>
+          Finish Task
+        </button>
+      </div>
     </div>
   );
 }

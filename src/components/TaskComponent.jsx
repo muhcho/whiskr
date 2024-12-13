@@ -9,7 +9,6 @@ export default function TaskComponent({ task }) {
     setIsCompleted((prev) => !prev);
   };
 
-  // Assign task colors from task.color or fallback by task name
   const backgroundColor =
     task.color ||
     (task.nameOfTask === "Feeding"
@@ -28,7 +27,7 @@ export default function TaskComponent({ task }) {
       ? "#FEA99A"
       : task.nameOfTask === "Vet Appointment"
       ? "#FD917D"
-      : "#FFFFFF"); // Default fallback color if none match.
+      : "#FFFFFF");
 
   const textColor =
     task.nameOfTask === "Feeding"
@@ -47,7 +46,7 @@ export default function TaskComponent({ task }) {
       ? "#FD917D"
       : task.nameOfTask === "Vet Appointment"
       ? "#44B6FF"
-      : "#000000"; // Default fallback color if none match.
+      : "#000000";
 
   return (
     <div
@@ -74,6 +73,13 @@ export default function TaskComponent({ task }) {
             <span>{task.nameOfTask}</span>
           </h3>
         </div>
+
+        {/* Display Grams of Food for Feeding Task */}
+        {task.nameOfTask === "Feeding" && task.foodAmount && (
+          <div className="feeding-info">
+            <strong>{task.foodAmount} grams of dry food</strong>
+          </div>
+        )}
 
         {/* Task Info */}
         <div className="task-info">
