@@ -75,30 +75,33 @@ export default function ChallengesPage() {
 
       {/* Posts Section */}
       <section className="challenges-posts">
-        <h2 className="posts-title">Other people's submissions</h2>
+        <h2 className="posts-title">People's submissions</h2>
         <div className="posts-container">
-          {visiblePosts.map((post) => (
-            <div
-              key={post.id}
-              className="challenge-post"
-              onClick={() => navigate(`/post/${post.id}`)} // Navigate to the specific post
-              style={{ cursor: "pointer" }} // Add a pointer cursor to indicate clickability
-            >
-              {/* User Info */}
-              <div className="post-user-info">
-                <img src={post.image} alt={`${post.name}'s avatar`} className="user-avatar" />
-                <div className="user-details">
-                  <p className="user-name">{post.name}</p>
-                  <p className="post-time">{post.postTime}</p>
+          {visiblePosts.map((post, index) => (
+            <React.Fragment key={post.id}>
+              <div
+                className="challenge-post"
+                onClick={() => navigate(`/post/${post.id}`)} // Navigate to the specific post
+                style={{ cursor: "pointer" }} // Add a pointer cursor to indicate clickability
+              >
+                {/* User Info */}
+                <div className="post-user-info">
+                  <img src={post.image} alt={`${post.name}'s avatar`} className="user-avatar" />
+                  <div className="user-details">
+                    <p className="user-name">{post.name}</p>
+                    <p className="post-time">{post.postTime}</p>
+                  </div>
+                </div>
+
+                {/* Post Content */}
+                <div className="post-content">
+                  <img src={post.postImage} alt="Cat post" className="post-image" />
+                  <p className="post-description">{post.description}</p>
                 </div>
               </div>
-
-              {/* Post Content */}
-              <div className="post-content">
-                <img src={post.postImage} alt="Cat post" className="post-image" />
-                <p className="post-description">{post.description}</p>
-              </div>
-            </div>
+              {/* Add a line between posts except after the last post */}
+              {index < visiblePosts.length - 1 && <hr className="post-separator" />}
+            </React.Fragment>
           ))}
         </div>
 
