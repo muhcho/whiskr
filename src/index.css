@@ -1521,6 +1521,7 @@ html, body {
   cursor: pointer;
   transition: background-color 0.3s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
 }
 
 .join-challenge-button:hover {
@@ -1536,6 +1537,7 @@ html, body {
   font-size: 16px;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-weight: bold;
 }
 
 .remind-me-button:hover {
@@ -1653,16 +1655,16 @@ html, body {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 .create-challenge-page .back-icon {
-  width: 24px;
+  width: 16px;
   cursor: pointer;
 }
 
 .create-challenge-page .page-title {
-  font-size: 1.5rem;
+  font-size: 38px;
   font-weight: bold;
   color: #333333;
 }
@@ -1673,21 +1675,24 @@ html, body {
 }
 
 .create-challenge-page .challenge-info h3 {
-  font-size: 1rem;
-  margin-bottom: 5px;
+  font-size: 18px;
+  margin-bottom: -16px;
   color: #44B6FF;
   text-transform: uppercase;
 }
 
 .create-challenge-page .challenge-info h4 {
-  font-size: 1.2rem;
+  font-size: 22px;
   font-weight: bold;
   color: #333333;
+  margin-top: 24px;
 }
 
 .create-challenge-page .challenge-info p {
-  font-size: 0.9rem;
+  font-size: 18px;
+  font-weight: bold;
   color: #666666;
+  margin-top: -22px;
 }
 
 /* Image Upload Section */
@@ -1714,7 +1719,7 @@ html, body {
 
 .create-challenge-page .image-placeholder p {
   color: #999999;
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 .create-challenge-page .image-preview {
@@ -1779,7 +1784,7 @@ html, body {
 .user-post-details-page-unique {
   padding: 20px;
   font-family: "Inter", sans-serif;
-  background-color: #f8fafa;
+  background-color: #ffffff;
   color: #333;
   min-height: 100vh;
 }
@@ -1851,7 +1856,7 @@ html, body {
 
 .post-description-unique {
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: auto;
   color: #000000;
   margin-top: 10px;
 }
@@ -1976,7 +1981,7 @@ html, body {
   font-size: 1rem;
   font-weight: bold;
   color: white;
-  background-color: #3182ce;
+  background-color: #44B6FF;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -2007,3 +2012,103 @@ html, body {
   margin: 0;
 }
 
+
+
+.account-page-unique {
+  padding: 20px;
+}
+
+.account-header-unique {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.user-info-unique {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-profile-image-unique {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.user-name-unique {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.three-dots-icon-unique {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.family-section-unique {
+  background-color: #fff4d8;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.family-title-unique {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.family-list-unique {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.family-item-square-unique {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px 15px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.family-item-name-unique {
+  margin: 0;
+}
+
+.reminder-section-unique {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.notification-icon-wrapper-unique {
+  flex-shrink: 0;
+}
+
+.notification-icon-unique {
+  width: 25px;
+  height: 25px;
+}
+
+.reminder-content-unique {
+  flex-grow: 1;
+}
+
+.reminder-title-unique {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 1px;
+}
+
+.reminder-text-unique {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: 8px;
+}
