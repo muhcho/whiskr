@@ -2117,6 +2117,7 @@ html, body {
 .create-account-page {
   padding: 22px;
   font-family: SF Pro, sans-serif;
+  padding-bottom: 100px;
 }
 
 .create-account-page h2 {

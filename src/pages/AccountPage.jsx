@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import UserProfileImage from "../assets/Images/mettepic.jpg";
 import ThreeDotsIcon from "../assets/Images/threedotstask.svg";
 import NotificationIcon from "../assets/Images/notificationicon.svg";
 
@@ -7,6 +6,7 @@ export default function AccountPage() {
   const [userData, setUserData] = useState({
     userName: "Mette Jensen",
     petNames: ["Alfred", "Monia"],
+    profilePic: "https://via.placeholder.com/150",
   });
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function AccountPage() {
       <header className="account-header-unique">
         <div className="user-info-unique">
           <img
-            src={UserProfileImage}
+            src={userData.profilePic}
             alt="User Profile"
             className="user-profile-image-unique"
           />

@@ -6,6 +6,7 @@ export default function CreateAccountPage() {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [petNames, setPetNames] = useState([""]); // Start with one pet field
+  const [profilePic, setProfilePic] = useState(""); // Profile picture URL or file
 
   const handleAddPetName = () => {
     setPetNames([...petNames, ""]); // Add an empty input field for a new pet name
@@ -23,11 +24,12 @@ export default function CreateAccountPage() {
       return;
     }
 
-    // Save user data to localStorage or a backend
+    // Save user data to localStorage
     const userData = {
       userName,
       email,
       petNames: petNames.filter((name) => name.trim()), // Remove empty names
+      profilePic: profilePic || "https://via.placeholder.com/150", // Default picture if none provided
     };
 
     localStorage.setItem("userData", JSON.stringify(userData)); // Save locally
@@ -60,6 +62,17 @@ export default function CreateAccountPage() {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email"
         />
+
+        {/* Profile Picture */}
+        <label htmlFor="profilePic">Profile Picture URL</label>
+        <input
+          type="text"
+          id="profilePic"
+          value={profilePic}
+          onChange={(e) => setProfilePic(e.target.value)}
+          placeholder="Paste profile picture URL"
+        />
+        {profilePic && <img src={profilePic} alt="Preview" className="profile-pic-preview" />}
 
         {/* Pet Names */}
         <label>Pet Names</label>
