@@ -73,7 +73,7 @@ export default function ChallengesPage() {
 
           {/* Image with Overlay Text */}
           <div className="challenge-image-container">
-            <img src={CatImage} alt="Cat with Hat" className="challenge-image" />
+            <img src={CatImage} alt="Cat with Hat" className="challenge-image"  loading="lazy" />
             <p className="overlay-text">Something like this</p>
           </div>
 
@@ -103,7 +103,7 @@ export default function ChallengesPage() {
               >
                 {/* User Info */}
                 <div className="post-user-info">
-                  <img src={post.image} alt={`${post.name}'s avatar`} className="user-avatar" />
+                  <img src={post.image} alt={`${post.name}'s avatar`} className="user-avatar" loading="lazy"  />
                   <div className="user-details">
                     <p className="user-name">{post.name}</p>
                     <p className="post-time">{post.postTime}</p>
@@ -112,7 +112,7 @@ export default function ChallengesPage() {
 
                 {/* Post Content */}
                 <div className="post-content">
-                  <img src={post.postImage} alt="Cat post" className="post-image" />
+                  <img src={post.postImage} alt="Cat post" className="post-image"  loading="lazy" />
                   <p className="post-description">{post.description}</p>
                 </div>
               </div>

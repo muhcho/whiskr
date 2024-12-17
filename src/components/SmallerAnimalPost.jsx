@@ -15,14 +15,14 @@ export default function SmallerAnimalPost({ animal }) {
   return (
     <div className="smaller-animal-post">
       <div className="smaller-animal-image-container">
-        <img src={image} alt={name} className="smaller-animal-image" />
+        <img src={image} alt={name} className="smaller-animal-image" loading="lazy"  />
         <div className="smaller-animal-overlay">
           <div className="smaller-animal-adjective">{adjective}</div>
           <div className="smaller-animal-name">{name}</div>
         </div>
       </div>
       <div className="smaller-shelter-info">
-        <img src={logo} alt={shelterName} className="smaller-shelter-logo" />
+        <img src={logo} alt={shelterName} className="smaller-shelter-logo" loading="lazy"  />
         <div className="smaller-shelter-details">
           <p className="smaller-shelter-name">{shelterName}</p>
           <p className="smaller-shelter-location">{location}</p>

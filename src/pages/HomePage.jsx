@@ -120,7 +120,7 @@ export default function HomePage() {
         <div className="header-top">
           <h1 className="homepage-title">Mette's tasks</h1>
           <div className="homepage-calendar">
-            <img src={CalendarIcon} alt="Calendar" className="calendar-icon" />
+            <img src={CalendarIcon} alt="Calendar" className="calendar-icon" loading="lazy" />
             <span className="calendar-notification"></span>
           </div>
         </div>
@@ -183,13 +183,13 @@ export default function HomePage() {
                   </h2>
                   <div className="task-info">
                     <div className="task-duration">
-                      <img src={DurationIcon} alt="Duration" />
+                      <img src={DurationIcon} alt="Duration" loading="lazy"  />
                       <span>{task.duration}</span>
                     </div>
                     {/* Food Amount for Feeding Task */}
                     {task.nameOfTask === "Feeding" && task.foodAmount && (
                       <div className="task-amount">
-                        <img src={AmountIcon} alt="Food Amount" />
+                        <img src={AmountIcon} alt="Food Amount" loading="lazy" />
                         <span>{task.foodAmount} grams</span>
                       </div>
                     )}
@@ -230,7 +230,7 @@ export default function HomePage() {
               </div>
               <div className="task-end-wrapper">
                 <span className="task-end-time">{task.endTime}</span>
-                <img src={ThreeDotsIcon} alt="Options" className="task-dots" />
+                <img src={ThreeDotsIcon} alt="Options" className="task-dots" loading="lazy"  />
               </div>
             </div>
           ))
@@ -242,7 +242,7 @@ export default function HomePage() {
         className="add-task-button"
         onClick={() => navigate("/create-task")}
       >
-        <img src={PlusButton} alt="Add Task" className="add-task-icon" />
+        <img src={PlusButton} alt="Add Task" className="add-task-icon" loading="lazy"  />
         Add Task
       </button>
     </div>

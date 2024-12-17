@@ -27,6 +27,7 @@ export default function AccountPage() {
             src={userData.profilePic}
             alt="User Profile"
             className="user-profile-image-unique"
+            loading="lazy" 
           />
           <h2 className="user-name-unique">{userData.userName}</h2>
         </div>
@@ -34,6 +35,7 @@ export default function AccountPage() {
           src={ThreeDotsIcon}
           alt="Options"
           className="three-dots-icon-unique"
+          loading="lazy" 
         />
       </header>
 
@@ -60,6 +62,7 @@ export default function AccountPage() {
             src={NotificationIcon}
             alt="Notification"
             className="notification-icon-unique"
+            loading="lazy" 
           />
         </div>
         <div className="reminder-content-unique">

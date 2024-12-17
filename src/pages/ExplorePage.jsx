@@ -11,9 +11,10 @@ import VetAppointmentImg from "../assets/Images/vetaapointcats.jpg";
 
 export default function ExplorePage() {
   const navigate = useNavigate();
-  const [taskData, setTaskData] = useState({}); // Task data fetched from Firebase
+  const [taskData, setTaskData] = useState({});
+  const [isLoading, setIsLoading] = useState(true); // Loading state
+  const [fetchError, setFetchError] = useState(null); // Error state
 
-  // Task types array
   const taskTypes = [
     { name: "Feeding", image: FeedingImg, color: "#D6F2FE" },
     { name: "Water Refill", image: WaterRefillImg, color: "#FFD7D6" },
@@ -25,22 +26,40 @@ export default function ExplorePage() {
     { name: "Vet Appointment", image: VetAppointmentImg, color: "#D7FDFE" },
   ];
 
-  // Set the initial selected task to "Feeding"
   const [selectedTask, setSelectedTask] = useState(taskTypes[0]);
 
-  // Fetch data from Firebase
+  // Optimized fetch with caching and cleanup
   useEffect(() => {
     const fetchTaskData = async () => {
+      const cachedData = localStorage.getItem("exploreTaskData");
+      if (cachedData) {
+        setTaskData(JSON.parse(cachedData));
+        setIsLoading(false);
+        return;
+      }
+
+      const controller = new AbortController();
       try {
         const response = await fetch(
-          "https://whiskr-2-default-rtdb.firebaseio.com/explorer.json"
+          "https://whiskr-2-default-rtdb.firebaseio.com/explorer.json",
+          { signal: controller.signal }
         );
+        if (!response.ok) throw new Error("Failed to fetch task data");
+
         const data = await response.json();
-        console.log("Fetched task data:", data); // Debugging log
         setTaskData(data || {});
+        localStorage.setItem("exploreTaskData", JSON.stringify(data));
+        setFetchError(null);
       } catch (error) {
-        console.error("Failed to fetch task data", error);
+        if (error.name !== "AbortError") {
+          console.error("Error fetching task data:", error);
+          setFetchError("Failed to load task data. Please try again later.");
+        }
+      } finally {
+        setIsLoading(false);
       }
+
+      return () => controller.abort(); // Cleanup fetch on unmount
     };
 
     fetchTaskData();
@@ -52,7 +71,6 @@ export default function ExplorePage() {
 
   const handleAddTask = () => {
     if (!selectedTask) return;
-    // Navigate to CreateTaskPage and pass the selected task
     navigate("/create-task", { state: { selectedTask } });
   };
 
@@ -61,54 +79,70 @@ export default function ExplorePage() {
       className="explore-page"
       style={{ backgroundColor: selectedTask?.color || "#FFFFFF" }}
     >
-      {/* Page Title and Description */}
       <h1 className="explore-page-title">Tasks</h1>
       <p className="explore-page-description">
-        Explore the most important tasks you should set for yourself so your cat has everything they need.
+        Explore the most important tasks you should set for yourself so your cat
+        has everything they need.
       </p>
 
+      {/* Loading and Error States */}
+      {isLoading && <p>Loading tasks...</p>}
+      {fetchError && <p className="error-message">{fetchError}</p>}
+
       {/* Task Carousel */}
-      <div className="explore-carousel">
-        {taskTypes.map((task) => (
-          <div
-            key={task.name}
-            className={`explore-carousel-item ${
-              selectedTask?.name === task.name ? "selected" : ""
-            }`}
-            onClick={() => handleTaskSelection(task)}
-          >
-            <img src={task.image} alt={task.name} />
-            <span>{task.name}</span>
+      {!isLoading && !fetchError && (
+        <>
+          <div className="explore-carousel">
+            {taskTypes.map((task) => (
+              <div
+                key={task.name}
+                className={`explore-carousel-item ${
+                  selectedTask?.name === task.name ? "selected" : ""
+                }`}
+                onClick={() => handleTaskSelection(task)}
+              >
+                <img src={task.image} alt={task.name} loading="lazy" />
+                <span>{task.name}</span>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      {/* Task Details Section */}
-      {selectedTask && (
-        <div className="explore-task-details">
-          <h2>{selectedTask.name}</h2>
-          <p>{taskData[selectedTask.name]?.description || "Loading details..."}</p>
-          <img src={selectedTask.image} alt={selectedTask.name} />
-          
-          {/* Recommendations Section */}
-          <div className="explore-recommendation">
-            <h3>Recommendations</h3>
-            <p>{taskData[selectedTask.name]?.recommendation || "Not available"}</p>
-          </div>
-          
-          {/* Reminder Frequency Section */}
-          <div className="explore-frequency">
-            <h3>Reminder Frequency</h3>
-            <p>{taskData[selectedTask.name]?.frequency || "Not available"}</p>
-          </div>
-        </div>
-      )}
+          {/* Task Details Section */}
+          {selectedTask && (
+            <div className="explore-task-details">
+              <h2>{selectedTask.name}</h2>
+              <p>
+                {taskData[selectedTask.name]?.description ||
+                  "Loading details..."}
+              </p>
+              <img
+                src={selectedTask.image}
+                alt={selectedTask.name}
+                loading="lazy"
+              />
 
-      {/* Add Task Button */}
-      {selectedTask && (
-        <button className="add-task-button" onClick={handleAddTask}>
-          + Add this task
-        </button>
+              <div className="explore-recommendation">
+                <h3>Recommendations</h3>
+                <p>
+                  {taskData[selectedTask.name]?.recommendation ||
+                    "Not available"}
+                </p>
+              </div>
+
+              <div className="explore-frequency">
+                <h3>Reminder Frequency</h3>
+                <p>
+                  {taskData[selectedTask.name]?.frequency || "Not available"}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Add Task Button */}
+          <button className="add-task-button" onClick={handleAddTask}>
+            + Add this task
+          </button>
+        </>
       )}
     </div>
   );

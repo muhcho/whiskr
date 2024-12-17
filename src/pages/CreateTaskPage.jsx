@@ -173,7 +173,7 @@ export default function CreateTaskPage() {
             }`}
             onClick={() => setSelectedTaskType(type)}
           >
-            <img src={type.image} alt={type.name} />
+            <img src={type.image} alt={type.name} loading="lazy" />
             <span>{type.name}</span>
           </div>
         ))}

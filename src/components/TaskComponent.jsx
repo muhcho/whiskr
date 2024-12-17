@@ -29,24 +29,6 @@ export default function TaskComponent({ task }) {
       ? "#FD917D"
       : "#FFFFFF");
 
-  const textColor =
-    task.nameOfTask === "Feeding"
-      ? "#FE7149"
-      : task.nameOfTask === "Water Refill"
-      ? "#FE2B6E"
-      : task.nameOfTask === "Clean Toilet"
-      ? "#ECBD1D"
-      : task.nameOfTask === "Give Bath"
-      ? "#44B6FF"
-      : task.nameOfTask === "Medication"
-      ? "#6088F5"
-      : task.nameOfTask === "Playtime"
-      ? "#6558C2"
-      : task.nameOfTask === "Buy Food"
-      ? "#FD917D"
-      : task.nameOfTask === "Vet Appointment"
-      ? "#44B6FF"
-      : "#000000";
 
   return (
     <div
@@ -84,7 +66,7 @@ export default function TaskComponent({ task }) {
         {/* Task Info */}
         <div className="task-info">
           <div className="task-duration">
-            <img src={DurationIcon} alt="Duration" />
+            <img src={DurationIcon} alt="Duration" loading="lazy"  />
             <span>{task.duration}</span>
           </div>
         </div>
@@ -92,12 +74,12 @@ export default function TaskComponent({ task }) {
         {/* Task Notes */}
         {task.notes ? (
           <div className="task-notes">
-            <img src={NotesIcon} alt="Notes" />
+            <img src={NotesIcon} alt="Notes" loading="lazy"  />
             <span>{task.notes}</span>
           </div>
         ) : (
           <div className="task-notes">
-            <img src={NotesIcon} alt="Notes" />
+            <img src={NotesIcon} alt="Notes" loading="lazy"  />
             <span>No notes provided</span>
           </div>
         )}

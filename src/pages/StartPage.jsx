@@ -17,7 +17,7 @@ export default function StartPage() {
   return (
     <div className="start-page">
       <CatAnimation />
-      <img src={WhiskrLogo} alt="Whiskr Logo" className="start-page-logo" />
+      <img src={WhiskrLogo} alt="Whiskr Logo" className="start-page-logo"  loading="lazy" />
       <p className="start-page-description">
         Manage your cat's daily schedule, earn points for every task, and use them to support animals in shelters.
       </p>

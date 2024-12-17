@@ -35,6 +35,7 @@ export default function AnimalPost({ animal }) {
           alt={name}
           className="animal-image"
           onError={(e) => (e.target.src = CatInBoxImage)} // Fallback image
+          loading="lazy" // Lazy-loads the image
         />
         <div className="needs-help-banner">NEEDS HELP</div>
         <div className="animal-overlay">
@@ -52,6 +53,7 @@ export default function AnimalPost({ animal }) {
       alt="Shelter Logo"
       className="shelter-logo"
       onError={(e) => (e.target.src = DyrenesLogo)} // Fallback logo
+      loading="lazy" 
     />
     <div className="shelter-text">
       <p className="shelter-name">{shelterName}</p>

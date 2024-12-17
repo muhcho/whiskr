@@ -57,6 +57,7 @@ export default function CreateChallengePage() {
           alt="Back"
           onClick={() => navigate("/challenges")}
           className="back-icon"
+          loading="lazy" 
         />
         <h2 className="page-title">Join challenge</h2>
       </div>
@@ -71,10 +72,10 @@ export default function CreateChallengePage() {
       {/* Image Upload */}
       <div className="image-upload">
         {postImage ? (
-          <img src={postImage} alt="Preview" className="image-preview" />
+          <img src={postImage} alt="Preview" className="image-preview"  loading="lazy" />
         ) : (
           <div className="image-placeholder">
-            <img src={EmptyImageIcon} alt="Upload" />
+            <img src={EmptyImageIcon} alt="Upload" loading="lazy"  />
             <p>Choose a file or drag and drop it here.</p>
           </div>
         )}
