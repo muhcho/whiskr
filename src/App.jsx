@@ -11,12 +11,14 @@ import NavBar from "./components/NavBar";
 import UserPostDetailsPage from "./pages/UserPostDetailsPage";
 import EditPostPage from "./pages/EditPostPage";
 import CreateAccountPage from "./pages/CreateAccountPage";
+import ScrollToTop from "./components/ScrollToTop"; 
 
 function App() {
   const location = useLocation(); // Access the current route location
 
   return (
     <main className="app">
+      <ScrollToTop /> 
       {/* Conditionally render NavBar if not on StartPage */}
       {location.pathname !== "/" && <NavBar />}
       <Routes>
