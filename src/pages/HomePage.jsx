@@ -118,7 +118,7 @@ export default function HomePage() {
       {/* Header */}
       <div className="homepage-header">
         <div className="header-top">
-          <h1 className="homepage-title">Mette's tasks</h1>
+          <h1 className="homepage-title">Your tasks</h1>
           <div className="homepage-calendar">
             <img src={CalendarIcon} alt="Calendar" className="calendar-icon" loading="lazy" />
             <span className="calendar-notification"></span>
