@@ -82,7 +82,7 @@ export default function ExplorePage() {
       <h1 className="explore-page-title">Tasks</h1>
       <p className="explore-page-description">
         Explore the most important tasks you should set for yourself so your cat
-        has everything they need.
+        has everything they need!
       </p>
 
       {/* Loading and Error States */}
