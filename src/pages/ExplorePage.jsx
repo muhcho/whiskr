@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import FeedingImg from "../assets/images/catistasting.jpg";
+import FeedingImg from "../assets/Images/catistasting.jpg";
 import WaterRefillImg from "../assets/Images/waterrefil.jpg";
 import CleanToiletImg from "../assets/Images/cattoilet.jpg";
 import GiveBathImg from "../assets/Images/givebathcat.jpg";
